@@ -1,0 +1,20 @@
+pitchDur = 1
+
+pitchDur =
+
+     1
+
+fs = 8000
+
+fs =
+
+        8000
+
+timeArray = 0:1/fs: pitchDur;
+value = [0 1 261.63]
+
+value =
+
+         0    1.0000  261.6300
+
+diary off

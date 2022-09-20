@@ -1,0 +1,58 @@
+    %% Creating pitches
+    pitchDur=1;
+    fS=8000;
+    timeArray=0:1/fS:pitchDur;
+    pitchA = sin(2*pi*freqPitch(1)*timeArray);
+    pitchB = sin(2*pi*freqPitch(2)*timeArray);
+    pitchC = sin(2*pi*freqPitch(3)*timeArray);
+    pitchD = sin(2*pi*freqPitch(4)*timeArray);
+    pitchE = sin(2*pi*freqPitch(5)*timeArray);
+    pitchF = sin(2*pi*freqPitch(6)*timeArray);
+    pitchG = sin(2*pi*freqPitch(7)*timeArray);
+    %% Read the file with pitches
+
+    fid = fopen('song.txt');
+    song = fscanf(fid, '%s');
+    fclose(fid);
+    %% Create the song and the file.wav
+    singsong = [pitchF pitchC pitchF pitchC pitchF pitchE pitchE pitchE pitchC... 
+                pitchE pitchC pitchE pitchF pitchF pitchF pitchC pitchF pitchC... 
+                pitchF pitchE pitchE pitchE pitchC pitchE pitchC pitchF];
+    sound(singsong)
+    audiowrite('firstSong.wav',singsong,fS);
+    audioWavinfo = audioinfo('firstSong.wav');
+    
+    wavFileName = audioWavinfo.Filename
+    wavFileCompMet = audioWavinfo.CompressionMethod
+    wavFileNumCh = audioWavinfo.NumChannels
+    wavFileRate = audioWavinfo.SampleRate
+    wavFileSamples = audioWavinfo.TotalSamples
+    wavFileDur = audioWavinfo.Duration
+    %% Listen the mp3 file
+    audio = audioread("song.mp3");
+    sound(audio);
+    
+    auinfo = audioinfo('song.mp3');
+    auFileName = auinfo.Filename
+    auFileCompMet = auinfo.CompressionMethod
+    auvFileNumCh = auinfo.NumChannels
+    auFileRate = auinfo.SampleRate
+    auFileSamples = auinfo.TotalSamples
+    auFileDur = auinfo.Duration
+    
+    save ('data.mat')
+    
+    fprintf('---------- .MP3 VS .WAV ----------');
+          fprintf(' %s VS %s ', 'firstsong.wav','song.mp3');
+          fprintf(' %s VS %s ', audioWavinfo.CompressionMethod, auinfo.CompressionMethod);
+          fprintf(' %s VS %s ', audioWavinfo.Duration, audioWavinfo.Duration);
+          fprintf(' %s VS %s ', audioWavinfo.SampleRate, auinfo.SampleRate);
+          fprintf('------------------------------');
+      disp([' ',auFileCompMet, ' VS ',wavFileCompMet]);
+disp([' ',wavFileName, ' VS ', auFileName]);
+disp([' ',num2str(wavFileDur), ' VS ', num2str(auFileDur)]);
+disp([' ',num2str(wavFileRate), ' VS ',num2str(auFileRate)]);
+              
+    
+    
+    
